@@ -2,7 +2,7 @@ from tkinter import *
 from funcs import *
 import numpy as np
 
-SPEED = 1 #The interval of the "ant's" moves, in seconds
+SPEED = 10 #The interval of the "ant's" moves, in milliseconds
 
 window = Tk() #Window of the program
 window.title("Langton's Ant Implementation (by thelunacodes)") #Title of the window
@@ -25,7 +25,7 @@ grid_canvas.pack()
 grid_array = np.array([["W" for w in range(win_width//4)] for h in range(win_height//4)])
 
 #Array of coordinates (X,Y) of each black square in the grid
-black_square_array = []
+black_square_coord_array = []
 
 #"Ant's" starting coordinate 
 ant_x = win_width//2 
@@ -35,6 +35,6 @@ ant_y = win_height//2
 ant = grid_canvas.create_rectangle(ant_x-2, ant_y-2, ant_x+2, ant_y+2, fill="#FF0200", outline="#FF0200") 
 
 #The function responsible for the moviment of the "ant"
-window.after(1000, move_ant, ant, ant_x, ant_y, grid_canvas, SPEED, 3, grid_array, black_square_array)
+window.after(SPEED, ant_movement_handler, ant, ant_x, ant_y, grid_canvas, SPEED, 3, grid_array, black_square_coord_array)
 
 window.mainloop()
